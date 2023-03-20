@@ -1059,7 +1059,7 @@ function wp_theme_auto_update_setting_template() {
 									} elseif ( current_user_can( 'update_php' ) ) {
 										printf(
 											/* translators: %s: URL to Update PHP page. */
-											' ' . __( '<a href="%s">Learn more  updating PHP</a>.' ),
+											' ' . __( '<a href="%s">Learn more about updating PHP</a>.' ),
 											esc_url( wp_get_update_php_url() )
 										);
 										wp_update_php_annotation( '</p><p><em>', '</em>' );

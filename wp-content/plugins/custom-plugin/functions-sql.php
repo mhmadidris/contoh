@@ -7,7 +7,7 @@ function allNews($nama_tabel)
     $table_name = $wpdb->prefix . 'news';
 
     // Pagination
-    $jumlahDataPerhalaman = 5;
+    $jumlahDataPerhalaman = 6;
     $result = $wpdb->get_results("SELECT * FROM " . $table_name);
     $jumlahData = count($result);
     $jumlahHalaman = ceil($jumlahData / $jumlahDataPerhalaman);
@@ -24,6 +24,8 @@ function allNews($nama_tabel)
 
     if (isset($_GET['cari'])) {
         $sql = "SELECT * FROM wp_news WHERE judul LIKE '%" . $_GET['cari'] . "%'";
+    } else if (isset($_GET['kategori'])) {
+        $sql = "SELECT * FROM wp_news WHERE kategori LIKE '%" . $_GET['kategori'] . "%'";
     } else {
         $sql = "SELECT * FROM " . $table_name . " LIMIT " . $awalData . ", " . $jumlahDataPerhalaman;
     }
@@ -138,11 +140,11 @@ function allKategori($nama_tabel)
     $table_name = $wpdb->prefix . 'kategori';
 
     // Pagination
-    $jumlahDataPerhalaman = 5;
+    $jumlahDataPerhalaman = 6;
     $result = $wpdb->get_results("SELECT * FROM " . $table_name);
     $jumlahData = count($result);
     $jumlahHalaman = ceil($jumlahData / $jumlahDataPerhalaman);
-    $halamanAktif = (isset($_GET["kategori"])) ? $_GET["kategori"] : 1;
+    $halamanAktif = (isset($_GET["cariKategori"])) ? $_GET["cariKategori"] : 1;
     $awalData = ($jumlahDataPerhalaman * $halamanAktif) - $jumlahDataPerhalaman;
 
     // Pass variable to template
@@ -155,6 +157,8 @@ function allKategori($nama_tabel)
 
     if (isset($_GET['cari'])) {
         $sql = "SELECT * FROM wp_kategori WHERE judul LIKE '%" . $_GET['cari'] . "%'";
+    } elseif (isset($_GET['kategori'])) {
+        $sql = "SELECT * FROM " . $table_name . " ORDER BY nama_kategori ASC";
     } else {
         $sql = "SELECT * FROM " . $table_name . " LIMIT " . $awalData . ", " . $jumlahDataPerhalaman;
     }
@@ -162,6 +166,17 @@ function allKategori($nama_tabel)
     $query = $wpdb->get_results($sql);
 
     return $query;
+}
+
+function getRowCategories($nama_tabel, $andWhere)
+{
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'kategori';
+    $sql = "SELECT * FROM " . $table_name . " WHERE id = 33";
+    $row = $wpdb->get_row($sql);
+
+    return $row;
 }
 
 function updateKategori($nama_tabel, $data = array(), $where = array())
@@ -172,4 +187,14 @@ function updateKategori($nama_tabel, $data = array(), $where = array())
     $update = $wpdb->update($table_name, $data, $where);
 
     return $update;
+}
+
+function deleteKategori($nama_tabel, $where = array())
+{
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . $nama_tabel;
+    $delete = $wpdb->delete($table_name, $where);
+
+    return $delete;
 }

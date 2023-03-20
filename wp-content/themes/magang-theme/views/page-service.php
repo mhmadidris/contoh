@@ -39,21 +39,105 @@
                 <div class="service-item bg-secondary text-center px-5">
                     <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/4-removebg-preview.png'?>" alt="Icon" style="width:130px;height:130px;">
                     <a href="https://spada.kemdikbud.go.id/" target="_blank"><h3>Spada</h3></a>
-                    <p class="mb-0">Spada sendiri merupakan kependekan dari Sistem Pembelajaran Daring Indonesia.</p>
+                    <p class="mb-0">Saat ini terdapat 47 mata kuliah Telkom University yang publish di LMS Spada Indonesia.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="service-item bg-secondary text-center px-5">
                     <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/5-removebg-preview.png'?>" alt="Icon" style="width:200px;height:90px;">
                     <a href="https://www.udemy.com/id/" target="_blank"><h3>Udemy</h3></a>
-                    <p class="mb-0">Udemy, Inc. adalah tujuan global untuk pengajaran dan pembelajaran online.</p>
+                    <p class="mb-0">Saat ini terdapat 13 mata kuliah Telkom University yang publish di platform UDEMY.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="service-item bg-secondary text-center px-5">
                     <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/6-removebg-preview.png'?> "alt="Icon" style="width:130px;height:100px;">
                     <a href="https://icei.ac.id/" target="_blank"><h3>ICEI Institute</h3></a>
-                    <p class="mb-0">Indonesia Cyber Education Institute merupakan lokapasar digital untuk matakuliah daring berkualitas di Indonesia.</p>
+                    <p class="mb-0">Saat ini terdapat 16 mata kuliah Telkom University yang publish di platform ICEI.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/telkomCorpu.png'?>" alt="Icon" style="width:190px;height:150px;">
+                    <a href="" target="_blank"><h3>Telkom Corpu</h3></a>
+                    <p class="mb-0">Bekerja sama dalam Pembuatan Konten Video Pembelajaran MK Perilaku Organisasi dan lain lain</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/uigreen.png'?>" alt="Icon" style="width:160px;height:130px;">
+                    <a href="" target="_blank"><h3>UI Green Metric</h3></a>
+                    <p class="mb-0">Bekerja sama dalam pelaksanaan Program UIGM dengan memanfaatkan konten pembelajaran daring Telkom University</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/telkkomIndonesia.png'?>" alt="Icon" style="width:160px;height:100px;">
+                    <a href="" target="_blank"><h3>Telkom Indonesia</h3></a>
+                    <p class="mb-0">Bekerja sama menyelenggarakan Pelatihan Pembuatan Konten Digital Magazine (Digimagz) Internal</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/UniversitasIslamBandung.png'?>" alt="Icon" style="width:160px;height:150px;">
+                    <a href="" target="_blank"><h3>Universitas Islam Bandung</h3></a>
+                    <p class="mb-0">Berkerja sama dalam Pembuatan Konten Video Pembelajaran MK Perilaku Adiksi</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/telkomschool.png'?>" alt="Icon" style="width:160px;height:90px;">
+                    <a href="" target="_blank"><h3>Telkom School</h3></a>
+                    <p class="mb-0">Bekerja sama menyelenggarakan Pelatihan Perancangan Konten Elearning - Guru Telkom Schools</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/images-removebg-preview.png'?>" alt="Icon" style="width:160px;height:140px;">
+                    <a href="" target="_blank"><h3>Kementrian Pariwisata dan Ekonomi</h3></a>
+                    <p class="mb-0">Menyelenggarakan pembuatan modul pembelajaran pada Program Wira Usaha Muda Mandiri dengan Universitas Telkom</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/kominfo-removebg-preview.png'?>" alt="Icon" style="width:250px;height:160px;">
+                    <a href="" target="_blank"><h3>Kementrian Komunikasi dan Informatika</h3></a>
+                    <p class="mb-0">Melayani Penyewaan Insfrastruktur Masive Online Open Course (MOOC) CeLOE untuk kegiatan Vocational School Graduate Academy (VSGA)</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/1-removebg-preview.png'?>" alt="Icon" style="width:100px;height:100px;">
+                    <a href="" target="_blank"><h3>Kementrian Pendidikan dan Kebudayaan</h3></a>
+                    <p class="mb-0">Penyewaan Digital Studio Recording untuk pembuatan video Finalis Gematik 2020. Support hibah IMD dan IPD KEMDIKBUDRISTEK bagi dosen Telkom University dengan membantu melengkapi kebutuhan yang bersifat adminitratif</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/IAIN_Syekh_Nurjati-removebg-preview.png'?>" alt="Icon" style="width:140px;height:120px;">
+                    <a href="" target="_blank"><h3>Institut Agama Islam Negeri (IAIN) Syekh Nurjati Cirebon</h3></a>
+                    <p class="mb-0">Berkerjasama menyelenggarakan pelatihan dan sertifikasi online dosen daring sebanyak 3 batch</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/download__1_-removebg-preview.png'?>" alt="Icon" style="width:160px;height:150px;">
+                    <a href="" target="_blank"><h3>Kementrian Agama Republik Indonesia</h3></a>
+                    <p class="mb-0">Berkerja sama menyelenggarakan Pelatihan Desain MOOC dan Pembuatan Modul Digital Learning</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/bhaktikencana-removebg-preview (1).png'?>" alt="Icon" style="width:180px;height:170px;">
+                    <a href="" target="_blank"><h3>Universitas Bhakti Kencana</h3></a>
+                    <p class="mb-0">Kerjasama pelaksanaan program Hibah Kompetisi Kampus Merdeka (PPKM) 2022 Program Institusional Supporting System (ISS)</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-secondary text-center px-5">
+                    <img class="img-responsive2" src="<?php echo get_template_directory_uri().'/assets/PartnerIMG/umycirebon-removebg-preview.png'?>" alt="Icon" style="width:160px;height:150px;">
+                    <a href="" target="_blank"><h3>Universitas Muhammadiyah Cirebon</h3></a>
+                    <p class="mb-0">Bekerja sama dalam program Merdeka Belajar-Kampus Merdeka (MBKM) Program Kompetisi-Kampus Merdeka (PK-KM) 2022</p>
                 </div>
             </div>
         </div>

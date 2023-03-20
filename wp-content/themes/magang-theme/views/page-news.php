@@ -1,7 +1,7 @@
-<?php 
+<?php
 /* 
-    Template Name: Page News 
-*/ 
+Template Name: Page News 
+*/
 ?>
 
 <?php get_header(); ?>
@@ -12,77 +12,84 @@
         <!-- Blog list Start -->
         <div class="col-lg-8">
             <div class="row g-5">
-                <?php 
+                <?php
                 $tambil_data = allNews('news');
-                foreach ($tambil_data as $data):
+                foreach ($tambil_data as $data) :
                 ?>
-                <?php if (isset($_GET['cari'])) : ?>
-                <h6>Hasil Pencarian <b>"<?php echo $_GET['cari']; ?>"</b></h6>
-                <?php endif; ?>
-                <div class="col-xl-6 col-lg-12 col-md-6">
-                    <div class="blog-item">
-                        <div class="position-relative overflow-hidden">
-                            <img class="img-fluid"
-                                src="/wp-content/uploads/<?php echo date("Y") . "/". date("m") . "/" . $data->gambar; ?>"
-                                alt="<?php echo $data->gambar; ?>">
-                        </div>
-                        <div class="bg-secondary d-flex">
-                            <div
-                                class="flex-shrink-0 d-flex flex-column justify-content-center text-center bg-primary text-white px-4">
-                                <?php 
-                                $tanggal = date('d',strtotime($data->date_added)); 
-                                $bulan = date('M',strtotime($data->date_added));
-                                $tahun = date('Y',strtotime($data->date_added));
-                                ?>
-                                <span><?php echo $tanggal; ?></span>
-                                <h5 class="text-uppercase m-0"><?php echo $bulan; ?></h5>
-                                <span><?php echo $tahun; ?></span>
+                    <?php if (isset($_GET['cari'])) : ?>
+                        <h6>Hasil Pencarian <b>"
+                                <?php echo $_GET['cari']; ?>"
+                            </b></h6>
+                    <?php endif; ?>
+                    <div class="col-xl-6 col-lg-12 col-md-6">
+                        <div class="blog-item">
+                            <div class="position-relative overflow-hidden">
+                                <img src="<?= content_url() . '/uploads/images/news/' . $data->gambar; ?>" alt="<?php echo $data->gambar; ?>" height="250" width="100%" style="object-fit: cover;">
                             </div>
-                            <div class="d-flex flex-column justify-content-center py-3 px-4">
-                                <div class="d-flex mb-2">
-                                    <small class="text-uppercase me-3"><i class="bi bi-person me-2"></i>CeLOE</small>
-                                    <small class="text-uppercase me-3"><i
-                                            class="bi bi-bookmarks me-2"></i><?php echo $data->kategori ?></small>
+                            <div class="bg-secondary d-flex" style="height: 25vh;">
+                                <div class="flex-shrink-0 d-flex flex-column justify-content-center text-center bg-primary text-white px-4">
+                                    <?php
+                                    $tanggal = date('d', strtotime($data->date_added));
+                                    $bulan = date('M', strtotime($data->date_added));
+                                    $tahun = date('Y', strtotime($data->date_added));
+                                    ?>
+                                    <span>
+                                        <?php echo $tanggal; ?>
+                                    </span>
+                                    <h5 class="text-uppercase m-0">
+                                        <?php echo $bulan; ?>
+                                    </h5>
+                                    <span>
+                                        <?php echo $tahun; ?>
+                                    </span>
                                 </div>
-                                <a class="h4"
-                                    href="<?= get_home_url() . '/detail/?news='. $data->id; ?>"><?php echo $data->judul; ?></a>
+                                <div class="d-flex flex-column justify-content-center  py-3 px-4">
+                                    <div class="d-flex mb-2" style="font-size: 1.25vw;">
+                                        <small class="text-uppercase me-3"><i class="bi bi-person me-2"></i>CeLOE</small>
+                                        <small class="text-uppercase me-3"><i class="bi bi-bookmarks me-2"></i>
+                                            <?php echo $data->kategori ?>
+                                        </small>
+                                    </div>
+                                    <a class="h4 news-title" style="font-size: 1.75vw;" href="<?= get_home_url() . '/detail/?news=' . $data->id; ?>"><?php echo $data->judul; ?></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <?php endforeach;?>
+                <?php endforeach; ?>
 
                 <!-- Start Pagination -->
-                <?php if (!isset($_GET['cari'])) : ?>
                 <?php
-                        $jumlahHalaman = get_query_var( 'jumlahHalaman' );
-                        $halamanAktif = get_query_var( 'halamanAktif' );
-                    ?>
-                <div class="col-12">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination pagination-lg m-0">
-                            <li class="page-item <?= $halamanAktif > 1 ? '' : 'disabled'?>">
-                                <a class="page-link rounded-0" href="?pages=<?= $halamanAktif - 1; ?>"
-                                    aria-label="Previous">
-                                    <span aria-hidden="true"><i class="bi bi-arrow-left"></i></span>
-                                </a>
-                            </li>
-                            <?php for ($i = 1; $i <= $jumlahHalaman; $i++) : ?>
-                            <?php if($i == $halamanAktif) : ?>
-                            <li class="page-item active"><a class="page-link" href="?pages=<?= $i ?>"><?= $i; ?></a>
-                                <?php else : ?>
-                            <li class="page-item"><a class="page-link" href="?pages=<?= $i ?>"><?= $i; ?></a></li>
-                            <?php endif; ?>
-                            <?php endfor; ?>
-                            <li class="page-item <?= $halamanAktif < $jumlahHalaman ? '' : 'disabled'?>">
-                                <a class="page-link rounded-0" href="?pages=<?= $halamanAktif + 1; ?>"
-                                    aria-label="Next">
-                                    <span aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                $jumlahHalaman = get_query_var('jumlahHalaman');
+                $halamanAktif = get_query_var('halamanAktif');
+                $jumlahData = get_query_var('jumlahData');
+                $jumlahDataPerhalaman = get_query_var('jumlahDataPerhalaman');
+                ?>
+                <?php if (!isset($_GET['cari'])) : ?>
+                    <?php if ($jumlahData > $jumlahDataPerhalaman) : ?>
+                        <div class="col-12">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination pagination-lg m-0">
+                                    <li class="page-item <?= $halamanAktif > 1 ? '' : 'disabled' ?>">
+                                        <a class="page-link rounded-0" href="?pages=<?= $halamanAktif - 1; ?>" aria-label="Previous">
+                                            <span aria-hidden="true"><i class="bi bi-arrow-left"></i></span>
+                                        </a>
+                                    </li>
+                                    <?php for ($i = 1; $i <= $jumlahHalaman; $i++) : ?>
+                                        <?php if ($i == $halamanAktif) : ?>
+                                            <li class="page-item active"><a class="page-link" href="?pages=<?= $i ?>"><?= $i; ?></a>
+                                            <?php else : ?>
+                                            <li class="page-item"><a class="page-link" href="?pages=<?= $i ?>"><?= $i; ?></a></li>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                    <li class="page-item <?= $halamanAktif < $jumlahHalaman ? '' : 'disabled' ?>">
+                                        <a class="page-link rounded-0" href="?pages=<?= $halamanAktif + 1; ?>" aria-label="Next">
+                                            <span aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
                 <!-- End Pagination -->
             </div>
@@ -95,8 +102,7 @@
             <form class="mb-5" method="GET" action="">
                 <div class="input-group">
                     <input type="text" name="cari" class="form-control p-3" placeholder="Keyword">
-                    <button type="submit" value="cari" class="btn btn-primary px-4"><i
-                            class="bi bi-search"></i></button>
+                    <button type="submit" value="cari" class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
                 </div>
             </form>
             <!-- Search Form End -->
@@ -105,11 +111,14 @@
             <div class="mb-5">
                 <h2 class="mb-4">Categories</h2>
                 <div class="d-flex flex-column justify-content-start bg-secondary p-4">
-                    <a class="h5 mb-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Artikel</a>
-                    <a class="h5 mb-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Informasi</a>
-                    <a class="h5 mb-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Luaran penelitian</a>
-                    <a class="h5 mb-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Dokumentasi</a>
-                    <a class="h5" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Seminar</a>
+                    <?php
+                    $tampilKategori = allKategori('kategori');
+                    foreach ($tampilKategori as $data) :
+                    ?>
+                        <a class="h5 mb-3" href="?kategori=<?= $data->nama_kategori; ?>">
+                            <i class="bi bi-arrow-right text-primary me-2"></i><?= $data->nama_kategori; ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <!-- Category End -->
@@ -120,24 +129,23 @@
             ?>
             <div class="mb-5">
                 <h2 class="mb-4">Recent Post</h2>
-                <?php 
-                foreach ($tambil_data as $data):
+                <?php foreach ($tambil_data as $data) :
                 ?>
-                <div class="d-flex mb-3">
-                    <img class="img-fluid"
-                        src="/wp-content/uploads/<?php echo date("Y") . "/". date("m") . "/" . $data->gambar; ?>"
-                        style="width: 100px; height: 100px; object-fit: cover;" alt="<?php echo $data->gambar; ?>">
-                    <a href="<?= get_home_url() . '/detail/?news='. $data->id; ?>"
-                        class="col-8 h5 d-flex align-items-center bg-secondary px-3 mb-0"><?php echo $data->judul; ?>
-                    </a>
-                </div>
+                    <div class="d-flex mb-3">
+                        <img class="img-fluid" src="<?= content_url() . '/uploads/images/news/' . $data->gambar; ?>" style="width: 100px; height: 100px; object-fit: cover;" alt="<?php echo $data->gambar; ?>">
+                        <a href="<?= get_home_url() . '/detail/?news=' . $data->id; ?>" class="col-8 h5 d-flex flex-column justify-content-center align-items-start bg-secondary px-3 mb-0">
+                            <p class="news-title" style="font-size: 1.5vw;">
+                                <?php echo $data->judul; ?>
+                            </p>
+                        </a>
+                    </div>
                 <?php endforeach; ?>
             </div>
             <!-- Recent Post End -->
 
             <!-- Image Start -->
             <div class="mb-5">
-                <img src="<?php echo get_template_directory_uri().'/assets/img/blog-1.jpg'?>" alt="" class="img-fluid">
+                <img src="<?php echo get_template_directory_uri() . '/assets/img/blog-1.jpg' ?>" alt="" class="img-fluid">
             </div>
             <!-- Image End -->
 

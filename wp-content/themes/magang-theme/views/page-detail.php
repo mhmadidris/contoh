@@ -1,7 +1,7 @@
-<?php 
-/* 
-    Template Name: Page Detail 
-*/ 
+<?php
+/*
+Template Name: Page Detail
+*/
 ?>
 
 <?php get_header(); ?>
@@ -11,7 +11,7 @@
 $url = $_SERVER['REQUEST_URI'];
 $id_news = explode("?news=", basename($url));
 
-$andWhere = " AND id='".$id_news[1]."'";
+$andWhere = " AND id='" . $id_news[1] . "'";
 $get_row_news = getRowNews('news', $andWhere);
 
 ?>
@@ -21,38 +21,49 @@ $get_row_news = getRowNews('news', $andWhere);
             <!-- Blog Detail Start -->
             <div class="mb-5">
                 <img class="img-fluid w-100 mb-5"
-                    src="/wp-content/uploads/<?php echo date("Y") . "/". date("m") . "/" . $get_row_news->gambar; ?>"
-                    alt="Foto">
-                <h1 class="mb-4"><?php echo $get_row_news->judul; ?></h1>
-                <p><?php echo $get_row_news->deskripsi; ?></p>
+                    src="<?= content_url() . '/uploads/images/news/' . $get_row_news->gambar; ?>" alt="Foto">
+                <h2 class="mb-4">
+                    <?php echo $get_row_news->judul; ?>
+                </h2>
+                <p>
+                    <?php echo $get_row_news->deskripsi; ?>
+                </p>
             </div>
             <!-- Blog Detail End -->
 
             <!-- Comment List Start -->
             <div class="mb-5">
-                <h2 class="mb-4"><?php 
-                $where = $id_news[1];
-                $tambil_data = getRowKomen('komen', $where);
-                echo count($tambil_data); 
-                ?> Comments</h2>
+                <h3 class="mb-4">
+                    <?php
+                    $where = $id_news[1];
+                    $tambil_data = getRowKomen('komen', $where);
+                    echo count($tambil_data);
+                    ?> Comments
+                </h3>
                 <?php
-                foreach ($tambil_data as $data):
+                foreach ($tambil_data as $data) :
                 ?>
                 <div class="d-flex mb-4">
-                    <!-- <img src="<?php echo get_template_directory_uri().'/assets/img/user.jpg'?>"
+                    <!-- <img src="<?php echo get_template_directory_uri() . '/assets/img/user.jpg' ?>"
                         class="img-fluid rounded-circle" style="width: 45px; height: 45px;"> -->
                     <div class="ps-3">
-                        <h6><a href=""><?php echo $data->nama ?></a> <small><i><?php
-                            $date=date_create($data->date_added);
-                            echo date_format($date,"D, d-m-Y");
-                            ?></i></small></h6>
-                        <p><?php echo $data->komen_body; ?></p>
+                        <h6><a href="">
+                                <?php echo $data->nama ?>
+                            </a> <small><i>
+                                    <?php
+                                        $date = date_create($data->date_added);
+                                        echo date_format($date, "D, d-m-Y");
+                                        ?>
+                                </i></small></h6>
+                        <p>
+                            <?php echo $data->komen_body; ?>
+                        </p>
                         <button class="btn btn-sm btn-light">Reply</button>
                     </div>
                 </div>
                 <?php endforeach; ?>
                 <!-- <div class="d-flex ms-5 mb-4">
-                    <img src="<?php echo get_template_directory_uri().'/assets/img/user.jpg'?>"
+                    <img src="<?php echo get_template_directory_uri() . '/assets/img/user.jpg' ?>"
                         class="img-fluid rounded-circle" style="width: 45px; height: 45px;">
                     <div class="ps-3">
                         <h6><a href="">Fuad Akhsan</a> <small><i>01 Jan 2023</i></small></h6>
@@ -119,11 +130,14 @@ $get_row_news = getRowNews('news', $andWhere);
             <div class="mb-5">
                 <h2 class="mb-4">Categories</h2>
                 <div class="d-flex flex-column justify-content-start bg-secondary p-4">
-                    <a class="h5 mb-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Artikel</a>
-                    <a class="h5 mb-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Informasi</a>
-                    <a class="h5 mb-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Luaran penelitian</a>
-                    <a class="h5 mb-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Dokumentasi</a>
-                    <a class="h5" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Seminar</a>
+                    <?php
+                    $tampilKategori = allKategori('kategori');
+                    foreach ($tampilKategori as $data) :
+                    ?>
+                    <a class="h5 mb-3" href="news/?kategori=<?= $data->nama_kategori; ?>">
+                        <i class="bi bi-arrow-right text-primary me-2"></i><?= $data->nama_kategori; ?>
+                    </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <!-- Category End -->
@@ -134,15 +148,17 @@ $get_row_news = getRowNews('news', $andWhere);
             ?>
             <div class="mb-5">
                 <h2 class="mb-4">Recent Post</h2>
-                <?php 
-                foreach ($tambil_data as $data):
+                <?php
+                foreach ($tambil_data as $data) :
                 ?>
                 <div class="d-flex mb-3">
-                    <img class="img-fluid"
-                        src="/wp-content/uploads/<?php echo date("Y") . "/". date("m") . "/" . $data->gambar; ?>"
+                    <img class="img-fluid" src="<?= content_url() . '/uploads/images/news/' . $data->gambar; ?>"
                         style="width: 100px; height: 100px; object-fit: cover;" alt="<?php echo $data->gambar; ?>">
-                    <a href="<?= get_home_url() . '/detail/?news='. $data->id; ?>"
-                        class="col-8 h5 d-flex align-items-center bg-secondary px-3 mb-0"><?php echo $data->judul; ?>
+                    <a href="<?= get_home_url() . '/detail/?news=' . $data->id; ?>"
+                        class="col-8 h5 d-flex flex-column justify-content-center align-items-start bg-secondary px-3 mb-0">
+                        <p class="news-title" style="font-size: 1.5vw;">
+                            <?php echo $data->judul; ?>
+                        </p>
                     </a>
                 </div>
                 <?php endforeach; ?>
@@ -151,7 +167,8 @@ $get_row_news = getRowNews('news', $andWhere);
 
             <!-- Image Start -->
             <div class="mb-5">
-                <img src="<?php echo get_template_directory_uri().'/assets/img/blog-1.jpg'?>" alt="" class="img-fluid">
+                <img src="<?php echo get_template_directory_uri() . '/assets/img/blog-1.jpg' ?>" alt=""
+                    class="img-fluid">
             </div>
             <!-- Image End -->
 

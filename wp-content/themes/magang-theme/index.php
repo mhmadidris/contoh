@@ -1,7 +1,10 @@
-<?php 
+<?php
+
 /**
  *  Template Name: Page Home 
- */ 
+ */
+
+$tampil_data = recentNewsIndex('news');
 ?>
 
 <?php get_header(); ?>
@@ -11,7 +14,7 @@
     <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="<?php echo get_template_directory_uri().'/assets/img/carousel-1.jpg'; ?>" alt="Image"
+                <img src="<?php echo get_template_directory_uri() . '/assets/img/carousel-1.jpg'; ?>" alt="Image"
                     class="w-100" />
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                     <div class="p-3" style="max-width: 900px;">
@@ -23,7 +26,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="<?php echo get_template_directory_uri().'/assets/img/carousel-2.jpg'; ?>" alt="Image"
+                <img src="<?php echo get_template_directory_uri() . '/assets/img/carousel-2.jpg'; ?>" alt="Image"
                     class="w-100" />
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                     <div class="p-3" style="max-width: 900px;">
@@ -35,7 +38,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="<?php echo get_template_directory_uri().'/assets/img/carousel-3.jpg'; ?>" alt="Image"
+                <img src="<?php echo get_template_directory_uri() . '/assets/img/carousel-3.jpg'; ?>" alt="Image"
                     class="w-100" />
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                     <div class="p-3" style="max-width: 900px;">
@@ -114,50 +117,49 @@
     <!-- About End -->
 
     <!-- Blog Start -->
+    <?php if (!empty($tampil_data)) : ?>
     <div class="container-fluid py-0 px-5">
-        <div class="text-center mx-auto mb-5" style="max-width: 600px; margin-top: 10px;">
+        <div class="text-center mx-auto mb-5" style="max-width: 600px;">
             <h1 class="display-5 mb-0">Berita Terbaru</h1>
             <hr class="w-25 mx-auto bg-primary">
         </div>
         <div class="row g-5">
             <?php
-            $tampil_data = recentNewsIndex('news');
-            foreach($tampil_data as $data) :
-            ?>
+                foreach ($tampil_data as $data) :
+                ?>
             <div class="col-lg-4">
                 <div class="blog-item">
-                    <div class="position-relative overflow-hidden">
-                        <img src="/wp-content/uploads/<?php echo date("Y") . "/". date("m") . "/" . $data->gambar; ?>"
-                            alt="" class="img-fluid" />
-                    </div>
-                    <div class="bg-secondary d-flex">
-                        <div
-                            class="flex-shrink-0 d-flex flex-column justify-content-center text-center bg-primary text-white px-4">
-                            <?php 
-                                $tanggal = date('d',strtotime($data->date_added)); 
-                                $bulan = date('M',strtotime($data->date_added));
-                                $tahun = date('Y',strtotime($data->date_added));
+                    <div class="position-relative overflow-hidden"></div>
+                    <img src="<?= content_url() . '/uploads/images/news/' . $data->gambar; ?>" alt="Image" height="200"
+                        width="100%" style="object-fit: cover;" />
+                </div>
+                <div class="bg-secondary d-flex">
+                    <div
+                        class="flex-shrink-0 d-flex flex-column justify-content-center text-center bg-primary text-white px-4">
+                        <?php
+                                $tanggal = date('d', strtotime($data->date_added));
+                                $bulan = date('M', strtotime($data->date_added));
+                                $tahun = date('Y', strtotime($data->date_added));
                                 ?>
-                            <span><?php echo $tanggal; ?></span>
-                            <h5 class="text-uppercase m-0"><?php echo $bulan; ?></h5>
-                            <span><?php echo $tahun; ?></span>
+                        <span><?php echo $tanggal; ?></span>
+                        <h5 class="text-uppercase m-0"><?php echo $bulan; ?></h5>
+                        <span><?php echo $tahun; ?></span>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center py-3 px-4">
+                        <div class="d-flex mb-2">
+                            <small class="text-uppercase me-3"><i class="bi bi-person me-2"></i>CeLOE</small>
+                            <small class="text-uppercase me-3"><i
+                                    class="bi bi-bookmarks me-2"></i><?php echo $data->kategori; ?></small>
                         </div>
-                        <div class="d-flex flex-column justify-content-center py-3 px-4">
-                            <div class="d-flex mb-2">
-                                <small class="text-uppercase me-3"><i class="bi bi-person me-2"></i>CeLOE</small>
-                                <small class="text-uppercase me-3"><i
-                                        class="bi bi-bookmarks me-2"></i><?php echo $data->kategori; ?></small>
-                            </div>
-                            <a class="h4"
-                                href="<?= get_home_url() . '/detail/?news='. $data->id; ?>"><?php echo $data->judul; ?></a>
-                        </div>
+                        <a class="h4 news-title"
+                            href="<?= get_home_url() . '/detail/?news=' . $data->id; ?>"><?php echo $data->judul; ?></a>
                     </div>
                 </div>
             </div>
             <?php endforeach; ?>
         </div>
     </div>
-
+    <?php endif; ?>
     <!-- Blog End -->
 
     <!-- Services Start -->
@@ -275,7 +277,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="d-block bg-primary h-100 text-center">
-                    <img src="<?php echo get_template_directory_uri().'/assets/img/feature.png'; ?>" alt="img"
+                    <img src="<?php echo get_template_directory_uri() . '/assets/img/feature.png'; ?>" alt="img"
                         class="img-fluid" />
                     <div class="p-4">
                         <p class="text-white mb-4">CeLoe merupakan lembaga pengembangan konten yang bertujuan untuk
@@ -362,7 +364,7 @@
             <div class="col-lg-6" style="min-height: 400px;">
                 <div class="position-relative h-100">
                     <img class="position-absolute w-100 h-100"
-                        src="<?php echo get_template_directory_uri().'/assets/img/quote.jpg'; ?>" alt=""
+                        src="<?php echo get_template_directory_uri() . '/assets/img/quote.jpg'; ?>" alt=""
                         class="img-fluid radius-image" style="object-fit: cover;" />
                 </div>
             </div>
@@ -375,7 +377,7 @@
         <div class="row g-0">
             <div class="col-lg-6" style="min-height: 500px;">
                 <div class="position-relative h-100">
-                    <img src="<?php echo get_template_directory_uri().'/assets/img/testimonial.jpg'; ?>" alt=""
+                    <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial.jpg'; ?>" alt=""
                         tyle="object-fit: cover;" class="position-absolute w-100 h-100" />
                 </div>
             </div>
@@ -387,7 +389,7 @@
                             clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
                             ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
                         <div class="d-flex align-items-center">
-                            <img src="<?php echo get_template_directory_uri().'/assets/img/testimonial-1.jpg'; ?>"
+                            <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial-1.jpg'; ?>"
                                 alt="" class="img-fluid radius-image" />
                             <div class="ps-4">
                                 <h3>Fegi Syawaldi</h3>
@@ -400,7 +402,7 @@
                             clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
                             ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
                         <div class="d-flex align-items-center">
-                            <img src="<?php echo get_template_directory_uri().'/assets/img/testimonial-2.jpg'; ?>"
+                            <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial-2.jpg'; ?>"
                                 alt="" class="img-fluid rounded-circle" />
                             <div class="ps-4">
                                 <h3>Annisa Gustien</h3>
@@ -413,7 +415,7 @@
                             clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
                             ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
                         <div class="d-flex align-items-center">
-                            <img src="<?php echo get_template_directory_uri().'/assets/img/testimonial-3.jpg'; ?>"
+                            <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial-3.jpg'; ?>"
                                 alt="" class="img-fluid rounded-circle" />
                             <div class="ps-4">
                                 <h3>Arini Rohmawati</h3>
@@ -426,7 +428,7 @@
                             clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
                             ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
                         <div class="d-flex align-items-center">
-                            <img src="<?php echo get_template_directory_uri().'/assets/img/testimonial-4.jpg'; ?>"
+                            <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial-4.jpg'; ?>"
                                 alt="" class="img-fluid rounded-circle" />
 
                             <div class="ps-4">

@@ -201,6 +201,13 @@ table.table .avatar {
     margin-top: 10px;
     font-size: 13px;
 }
+
+.news-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 </style>
 <script>
 $(document).ready(function() {
@@ -234,28 +241,28 @@ $(document).ready(function() {
                 </thead>
                 <tbody>
                     <?php
-                        $tambil_data = allNews('news');
-                        foreach ($tambil_data as $data):
-                        ?>
+                    $tambil_data = allNews('news');
+                    foreach ($tambil_data as $data) :
+                    ?>
                     <tr>
-                        <td><img src="/wp-content/uploads/<?php echo date("Y") . "/". date("m") . "/" . $data->gambar; ?>"
+                        <td><img src="<?= content_url() . '/uploads/' . "images/news/" . $data->gambar; ?>"
                                 alt="<?php echo $data->gambar ?>" style="margin-bottom: 5px; width: 100px;">
                             </br>
-                            <?php echo $data->judul; ?>
+                            <p class="news-title"><?php echo $data->judul; ?></p>
                         </td>
                         <td><?php echo strtoupper($data->kategori); ?></td>
                         <td><?php
-                            $date=date_create($data->date_added);
-                            echo date_format($date,"D, d-m-Y");
-                            ?></td>
+                                $date = date_create($data->date_added);
+                                echo date_format($date, "D, d-m-Y");
+                                ?></td>
                         <td><?php
-                            $date=date_create($data->date_modified);
-                            echo date_format($date,"D, d-m-Y");
-                            ?></td>
+                                $date = date_create($data->date_modified);
+                                echo date_format($date, "D, d-m-Y");
+                                ?></td>
                         <td>
-                            <a href="<?= admin_url() . 'admin.php?page=update_news&id='.$data->id; ?>" class="edit"
+                            <a href="<?= admin_url() . 'admin.php?page=update_news&id=' . $data->id; ?>" class="edit"
                                 title="Edit" data-toggle="tooltip"><i class="material-icons">&#xf040;</i></a>
-                            <a href="<?= admin_url() . 'admin.php?page=delete_news&id='.$data->id; ?>" class="delete"
+                            <a href="<?= admin_url() . 'admin.php?page=delete_news&id=' . $data->id; ?>" class="delete"
                                 title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
                         </td>
                     </tr>
@@ -263,13 +270,14 @@ $(document).ready(function() {
                 </tbody>
             </table>
             <?php
-                $jumlahDataPerhalaman = get_query_var( 'jumlahDataPerhalaman' );
-                $jumlahHalaman = get_query_var( 'jumlahHalaman' );
-                $halamanAktif = get_query_var( 'halamanAktif' );
-                $jumlahData = get_query_var( 'jumlahData' );
-                ?>
+            $jumlahDataPerhalaman = get_query_var('jumlahDataPerhalaman');
+            $jumlahHalaman = get_query_var('jumlahHalaman');
+            $halamanAktif = get_query_var('halamanAktif');
+            $jumlahData = get_query_var('jumlahData');
+            ?>
             <div class="clearfix">
-                <div class="hint-text">Showing <b><?= $jumlahDataPerhalaman; ?></b> out of
+                <div class="hint-text">Showing
+                    <b><?php echo empty($jumlahData < 1) ? $jumlahDataPerhalaman : "0"; ?></b> out of
                     <b><?= $jumlahData; ?></b> entries
                 </div>
                 <ul class="pagination">
@@ -278,7 +286,7 @@ $(document).ready(function() {
                             href="admin.php?page=menu_news&pages=<?= $halamanAktif - 1; ?>">Previous</a></li>
                     <?php endif; ?>
                     <?php for ($i = 1; $i <= $jumlahHalaman; $i++) : ?>
-                    <?php if($i == $halamanAktif) : ?>
+                    <?php if ($i == $halamanAktif) : ?>
                     <li class="page-item active"><a href="admin.php?page=menu_news&pages=<?= $i; ?>"
                             class="page-link"><?= $i; ?></a></li>
                     <?php else : ?>

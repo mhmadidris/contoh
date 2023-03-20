@@ -23,8 +23,8 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <!-- <link href="<?php echo get_template_directory_uri().'/assets/img/logo.png'; ?>" rel="icon">
-	<link href="<?php echo get_template_directory_uri().'/assets/img/apple-touch-icon.png'; ?>" rel="apple-touch-icon" /> -->
+    <link href="<?php echo get_template_directory_uri().'/assets/img/logo.png'; ?>" rel="icon">
+	<link href="<?php echo get_template_directory_uri().'/assets/img/apple-touch-icon.png'; ?>" rel="apple-touch-icon" />
 
     <!-- Template Stylesheet -->
     <?php wp_head() ?>

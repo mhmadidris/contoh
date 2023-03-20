@@ -209,11 +209,6 @@ table.table .avatar {
     transform: translate(-50%, -50%);
 }
 </style>
-<script>
-$(document).ready(function() {
-    $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
 <div class="container-xl">
     <div class="table-responsive">
         <div class="table-wrapper">
@@ -229,7 +224,7 @@ $(document).ready(function() {
                     </div>
                 </div>
             </div>
-            <div id="employee_table">
+            <div id="kategori_tabel">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -247,26 +242,34 @@ $(document).ready(function() {
                         foreach ($tambil_data as $data) :
                         ?>
                         <tr>
-                            <td style="text-align: center;"><?php echo $i++; ?></td>
-                            <td><?php echo strtoupper($data->nama_kategori); ?></td>
-                            <td><?php
+                            <td style="text-align: center;">
+                                <?php echo $i++; ?>
+                            </td>
+                            <td>
+                                <?php echo strtoupper($data->nama_kategori); ?>
+                            </td>
+                            <td>
+                                <?php
                                     $date = date_create($data->date_added);
                                     echo date_format($date, "D, d-m-Y");
-                                    ?></td>
-                            <td><?php
+                                    ?>
+                            </td>
+                            <td>
+                                <?php
                                     $date = date_create($data->date_modified);
                                     echo date_format($date, "D, d-m-Y");
-                                    ?></td>
-                            <td>
-                                <a href="" id="<?php echo $data->id; ?>" data-toggle="modal"
-                                    data-target="#edit_data_Modal" class="edit" title="Edit"><i
-                                        class="material-icons">&#xf040;</i></a>
-                                <a href="<?= admin_url() . 'admin.php?page=delete_news&id=' . $data->id; ?>"
-                                    class="delete" title="Delete" data-toggle="tooltip"><i
-                                        class="material-icons">&#xE5C9;</i></a>
+                                    ?>
                             </td>
-                            <td><input type="button" name="edit" value="Edit" id="<?php echo $data->id; ?>"
-                                    class="btn btn-warning btn-xs edit_data" /></td>
+                            <td>
+                                <a href="" data-id="<?php echo $data->id; ?>"
+                                    data-kategori="<?php echo $data->nama_kategori; ?>" class="edit" title="Edit"
+                                    data-toggle="modal" data-target="#edit_data_Modal"><i
+                                        class="material-icons">&#xf040;</i>
+                                </a>
+                                <a href="" data-id="<?php echo $data->id; ?>" class="delete" title="Delete"
+                                    data-toggle="modal"><i class="material-icons">&#xE5C9;</i>
+                                </a>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -279,8 +282,12 @@ $(document).ready(function() {
             $jumlahData = get_query_var('jumlahData');
             ?>
             <div class="clearfix">
-                <div class="hint-text">Showing <b><?= $jumlahDataPerhalaman; ?></b> out of
-                    <b><?= $jumlahData; ?></b> entries
+                <div class="hint-text">Showing <b>
+                        <?= $jumlahDataPerhalaman; ?>
+                    </b> out of
+                    <b>
+                        <?= $jumlahData; ?>
+                    </b> entries
                 </div>
                 <ul class="pagination">
                     <?php if ($halamanAktif > 1) : ?>
@@ -325,19 +332,20 @@ $(document).ready(function() {
     </div>
 </div>
 
-<div id="editModal" class="modal fade">
+<div id="edit_data_Modal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Edit Categories</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body" id="form_edit">
-                <form method="post" id="editModal">
+            <div class="modal-body edit-body">
+                <form method="post" id="edit_form">
                     <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori" class="form-control" />
+                    <input type="text" name="catId" id="catId" value="" class="form-control" hidden />
+                    <input type="text" name="kategoriNama" id="kategoriNama" value="" class="form-control" />
                     </br>
-                    <input type="submit" name="insert" id="insert" value="Save" class="btn btn-success" />
+                    <input type="submit" name="update" id="update" value="Update" class="btn btn-success" />
                 </form>
             </div>
         </div>
@@ -346,57 +354,86 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
-    // Begin Aksi Insert
+    var link = "<?php echo admin_url('admin-ajax.php') ?>";
+    // Start Insert Data
     $('#insert_form').on("submit", function(event) {
         event.preventDefault();
         if ($('#kategori').val() == "") {
-            alert("Mohon Isi Nama ");
-        } else if ($('#alamat').val() == '') {
-            alert("Mohon Isi Alamat");
+            alert("Mohon Isi Nama Kategori ");
         } else {
+            var form = $('#insert_form').serialize();
+            var formData = new FormData();
+            formData.append('action', 'kategori_insert');
+            formData.append('kategori_insert', form);
             $.ajax({
                 method: "POST",
-
-                data: $('#insert_form').serialize(),
+                processData: false,
+                contentType: false,
+                data: formData,
+                url: link,
                 beforeSend: function() {
                     $('#insert').val("Inserting");
                 },
                 success: function(data) {
-                    var kategoriInput = "lala";
-                    <?php
-                        $current_datetime = current_datetime()->format('Y-m-d H:i:s');
-
-                        if (!empty($_POST)) {
-                            $data = array(
-                                'nama_kategori' => isset($_POST['kategori']) ? $_POST['kategori'] : '',
-                                'date_added' => $current_datetime,
-                                'date_modified' => $current_datetime,
-                            );
-
-                            $insert = addCategories('kategori', $data);
-                        }
-
-                        ?>
                     $('#insert_form')[0].reset();
                     $('#add_data_Modal').modal('hide');
-                    $('#employee_table').html(data);
+                    window.top.location = window.top.location
                 }
             });
         }
     });
+    // End Insert Data
 
-    $(document).on('click', '.edit_data', function() {
-        var employee_id = $(this).attr("id");
+    // Start Edit Data
+    $('.edit').on("click", function(event) {
+        var dataId = $(this).data("id");
+        var dataKategori = $(this).data("kategori");
+        $(".edit-body #catId").val(dataId);
+        $(".edit-body #kategoriNama").val(dataKategori);
+
+        $('#edit_form').on("submit", function(event) {
+            event.preventDefault();
+
+            var form = $('#edit_form').serialize();
+            var formData = new FormData();
+            formData.append('action', 'kategori_edit');
+            formData.append('kategori_edit', form);
+
+            $.ajax({
+                method: "POST",
+                processData: false,
+                contentType: false,
+                data: formData,
+                url: link,
+                beforeSend: function() {
+                    $('#update').val("Updating");
+                },
+                success: function(response) {
+                    $('#edit_form')[0].reset();
+                    $('#edit_data_Modal').modal('hide');
+                    window.top.location = window.top.location
+                }
+            });
+        });
+    });
+    // End Edit Data
+
+    // Start Delete Data
+    $('.delete').on("click", function(event) {
+        var dataId = $(this).data("id");
+
         $.ajax({
-            url: "edit.php",
             method: "POST",
             data: {
-                employee_id: employee_id
+                action: 'delete_kategori',
+                dataId: dataId,
             },
-            success: function(data) {
-                $('#editModal').modal('show');
+            url: link,
+            success: function(response) {
+                window.top.location = window.top.location
             }
         });
     });
+    // End Delete Data
 });
 </script>

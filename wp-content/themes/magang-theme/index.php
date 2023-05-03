@@ -118,15 +118,15 @@ $tampil_data = recentNewsIndex('news');
 
     <!-- Blog Start -->
     <?php if (!empty($tampil_data)) : ?>
-    <div class="container-fluid py-0 px-5">
+    <div class="container-fluid py-6 px-5">
         <div class="text-center mx-auto mb-5" style="max-width: 600px;">
             <h1 class="display-5 mb-0">Berita Terbaru</h1>
             <hr class="w-25 mx-auto bg-primary">
         </div>
-        <div class="row g-5">
+        <!-- <div class="row g-5">
             <?php
-                foreach ($tampil_data as $data) :
-                ?>
+            foreach ($tampil_data as $data) :
+            ?>
             <div class="col-lg-4">
                 <div class="blog-item">
                     <div class="position-relative overflow-hidden"></div>
@@ -137,10 +137,10 @@ $tampil_data = recentNewsIndex('news');
                     <div
                         class="flex-shrink-0 d-flex flex-column justify-content-center text-center bg-primary text-white px-4">
                         <?php
-                                $tanggal = date('d', strtotime($data->date_added));
-                                $bulan = date('M', strtotime($data->date_added));
-                                $tahun = date('Y', strtotime($data->date_added));
-                                ?>
+                        $tanggal = date('d', strtotime($data->date_added));
+                        $bulan = date('M', strtotime($data->date_added));
+                        $tahun = date('Y', strtotime($data->date_added));
+                        ?>
                         <span><?php echo $tanggal; ?></span>
                         <h5 class="text-uppercase m-0"><?php echo $bulan; ?></h5>
                         <span><?php echo $tahun; ?></span>
@@ -153,6 +153,42 @@ $tampil_data = recentNewsIndex('news');
                         </div>
                         <a class="h4 news-title"
                             href="<?= get_home_url() . '/detail/?news=' . $data->id; ?>"><?php echo $data->judul; ?></a>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div> -->
+        <div class="row g-5">
+            <?php
+                foreach ($tampil_data as $data) :
+                ?>
+            <div class="col-lg-4">
+                <div class="blog-item">
+                    <div class="position-relative overflow-hidden">
+                        <img class="img-fluid" src="<?= content_url() . '/uploads/images/news/' . $data->gambar; ?>"
+                            alt="Image" style="object-fit: cover; height: 40vh; width: 100%;">
+                    </div>
+                    <div class="bg-secondary d-flex">
+                        <div
+                            class="flex-shrink-0 d-flex flex-column justify-content-center text-center bg-primary text-white px-4">
+                            <?php
+                                    $tanggal = date('d', strtotime($data->date_added));
+                                    $bulan = date('M', strtotime($data->date_added));
+                                    $tahun = date('Y', strtotime($data->date_added));
+                                    ?>
+                            <span><?= $tanggal; ?></span>
+                            <h5 class="text-uppercase m-0"><?= $bulan; ?></h5>
+                            <span><?= $tahun; ?></span>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center py-3 px-4" style="height: 20vh;">
+                            <div class="d-flex mb-2">
+                                <small class="text-uppercase me-3"><i class="bi bi-person me-2"></i>CeLOE</small>
+                                <small class="text-uppercase me-3"><i
+                                        class="bi bi-bookmarks me-2"></i><?= $data->kategori; ?></small>
+                            </div>
+                            <a class="h4 news-title"
+                                href="<?= get_home_url() . '/detail/?news=' . $data->id; ?>"><?= $data->judul; ?></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -377,8 +413,9 @@ $tampil_data = recentNewsIndex('news');
         <div class="row g-0">
             <div class="col-lg-6" style="min-height: 500px;">
                 <div class="position-relative h-100">
-                    <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial.jpg'; ?>" alt=""
-                        tyle="object-fit: cover;" class="position-absolute w-100 h-100" />
+                    <img class="position-absolute w-100 h-100"
+                        src="<?= get_template_directory_uri() . '/assets/img/testimonial.jpg'; ?>"
+                        style="object-fit: cover;">
                 </div>
             </div>
             <div class="col-lg-6 py-6 px-5">
@@ -388,52 +425,81 @@ $tampil_data = recentNewsIndex('news');
                         <p class="fs-4 fw-normal mb-4"><i class="fa fa-quote-left text-primary me-3"></i>Dolores sed duo
                             clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
                             ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
-                        <div class="d-flex align-items-center">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial-1.jpg'; ?>"
-                                alt="" class="img-fluid radius-image" />
+                        <div class="d-flex align-items-center" style="padding: 10px;">
+                            <img class="img-fluid rounded-circle"
+                                src="<?= get_template_directory_uri() . '/assets/img/testimonial-1.jpg'; ?>"
+                                alt="Img Avatar"
+                                style="object-fit: cover; object-position: center; width: 60px; height: 60px;">
+
                             <div class="ps-4">
                                 <h3>Fegi Syawaldi</h3>
                                 <span class="text-uppercase">Staff</span>
                             </div>
                         </div>
                     </div>
+
+                    <div class="testimonial-item">
+                        <p class="fs-4 fw-normal mb-4"><i class="fa fa-quote-left text-primary me-3"></i>Dolores sed duo
+                            clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
+                            ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
+                        <div class="d-flex align-items-center" style="padding: 10px;">
+                            <img class="img-fluid rounded-circle"
+                                src="<?= get_template_directory_uri() . '/assets/img/testimonial-2.jpg'; ?>"
+                                alt="Img Avatar"
+                                style="object-fit: cover; object-position: center; width: 60px; height: 60px;">
+
+                            <div class="ps-4">
+                                <h3>Fegi Syawaldi</h3>
+                                <span class="text-uppercase">Staff</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-item">
+                        <p class="fs-4 fw-normal mb-4"><i class="fa fa-quote-left text-primary me-3"></i>Dolores sed duo
+                            clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
+                            ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
+                        <div class="d-flex align-items-center" style="padding: 10px;">
+                            <img class="img-fluid rounded-circle"
+                                src="<?= get_template_directory_uri() . '/assets/img/testimonial-3.jpg'; ?>"
+                                alt="Img Avatar"
+                                style="object-fit: cover; object-position: center; width: 60px; height: 60px;">
+
+                            <div class="ps-4">
+                                <h3>Fegi Syawaldi</h3>
+                                <span class="text-uppercase">Staff</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="testimonial-item">
                         <p class="fs-4 fw-normal mb-4"><i class="fa fa-quote-left text-primary me-3"></i>Dolores sed duo
                             clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
                             ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
                         <div class="d-flex align-items-center">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial-2.jpg'; ?>"
-                                alt="" class="img-fluid rounded-circle" />
+                            <div class="rounded-circle" style="padding: 10px; overflow: hidden;">
+                                <img class="" src="<?= get_template_directory_uri() . '/assets/img/4.png'; ?>" alt=""
+                                    style="object-fit: contain; object-position: center; width: 50px; height: 50px;">
+                            </div>
                             <div class="ps-4">
-                                <h3>Annisa Gustien</h3>
+                                <h3>SPADA</h3>
                                 <span class="text-uppercase">Head</span>
                             </div>
                         </div>
                     </div>
-                    <div class="testimonial-item">
-                        <p class="fs-4 fw-normal mb-4"><i class="fa fa-quote-left text-primary me-3"></i>Dolores sed duo
-                            clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
-                            ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
-                        <div class="d-flex align-items-center">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial-3.jpg'; ?>"
-                                alt="" class="img-fluid rounded-circle" />
-                            <div class="ps-4">
-                                <h3>Arini Rohmawati</h3>
-                                <span class="text-uppercase">Staff</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item">
-                        <p class="fs-4 fw-normal mb-4"><i class="fa fa-quote-left text-primary me-3"></i>Dolores sed duo
-                            clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
-                            ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
-                        <div class="d-flex align-items-center">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/img/testimonial-4.jpg'; ?>"
-                                alt="" class="img-fluid rounded-circle" />
 
+                    <div class="testimonial-item">
+                        <p class="fs-4 fw-normal mb-4"><i class="fa fa-quote-left text-primary me-3"></i>Dolores sed duo
+                            clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna
+                            ut et, nonumy et labore et tempor diam tempor erat dolor rebum sit ipsum.</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle" style="padding: 10px; overflow: hidden;">
+                                <img class="" src="<?= get_template_directory_uri() . '/assets/img/2.png'; ?>" alt=""
+                                    style="object-fit: contain; object-position: center; width: 50px; height: 50px;">
+                            </div>
                             <div class="ps-4">
-                                <h3>Mhd Yudha Pratama</h3>
-                                <span class="text-uppercase">Staff</span>
+                                <h3>Kampus Merdeka</h3>
+                                <span class="text-uppercase">Head</span>
                             </div>
                         </div>
                     </div>

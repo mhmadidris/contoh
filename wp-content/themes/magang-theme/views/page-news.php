@@ -6,6 +6,8 @@ Template Name: Page News
 
 <?php get_header(); ?>
 
+<script src="<?php echo get_template_directory_uri() . '/assets/js/calender.js' ?>" defer></script>
+
 <!-- Blog Start -->
 <div class="container-fluid py-6 px-5">
     <div class="row g-5">
@@ -108,19 +110,23 @@ Template Name: Page News
             <!-- Search Form End -->
 
             <!-- Category Start -->
-            <div class="mb-5">
-                <h2 class="mb-4">Categories</h2>
-                <div class="d-flex flex-column justify-content-start bg-secondary p-4">
-                    <?php
-                    $tampilKategori = allKategori('kategori');
-                    foreach ($tampilKategori as $data) :
-                    ?>
-                        <a class="h5 mb-3" href="?kategori=<?= $data->nama_kategori; ?>">
-                            <i class="bi bi-arrow-right text-primary me-2"></i><?= $data->nama_kategori; ?>
-                        </a>
-                    <?php endforeach; ?>
+            <?php
+            $tampilKategori = allKategori('kategori');
+            if (count($tampilKategori) > 0) :
+            ?>
+                <div class="mb-5">
+                    <h2 class="mb-4">Categories</h2>
+                    <div class="d-flex flex-column justify-content-start bg-secondary p-4">
+                        <?php
+                        foreach ($tampilKategori as $data) :
+                        ?>
+                            <a class="h5 mb-3" href="?kategori=<?= $data->nama_kategori; ?>">
+                                <i class="bi bi-arrow-right text-primary me-2"></i><?= $data->nama_kategori; ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
             <!-- Category End -->
 
             <!-- Recent Post Start -->
@@ -167,15 +173,33 @@ Template Name: Page News
             <!-- Tags End -->
 
             <!-- Plain Text Start -->
+            <style>
+                .active-day {
+                    width: 5px;
+                    height: 5px;
+                    color: white;
+                    font-weight: bold;
+                    background: #dc3545;
+                    border-radius: 100%;
+                }
+
+                /* .event {
+                color: blue;
+                font-weight: bold;
+            } */
+            </style>
+
             <div>
                 <h2 class="mb-3">Calender</h2>
                 <div cellspacing is used to specify the space between the cell and its contents -->
-                    <h2 align="center" style="color: rgba(255, 22, 22, 0.863);">
-                        January 2023
-                    </h2>
+                    <div class="d-flex align-content-center justify-content-between">
+                        <button onclick="prevMonth()" class="btn" style="background: #dc3545; color:white;">&lt;</button>
+                        <h2 id="month-year" style="color: rgba(255, 22, 22, 0.863);"></h2>
+                        <button onclick="nextMonth()" class="btn" style="background: #dc3545; color:white;">&gt;</button>
+                    </div>
                     <br />
 
-                    <table bgcolor="white" align="center" cellspacing="12" cellpadding="12">
+                    <table class="table-borderless table-margin" bgcolor="white" align="center" cellspacing="12" cellpadding="12">
 
                         <caption align="top">
                         </caption>
@@ -189,67 +213,11 @@ Template Name: Page News
                                 <th>Wed</th>
                                 <th>Thu</th>
                                 <th>Fri</th>
-                                <th>sat</th>
+                                <th>Sat</th>
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                            </tr>
-                            <tr></tr>
-                            <tr>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>13</td>
-                                <td>14</td>
-                            </tr>
-                            <tr>
-                                <td>15</td>
-                                <td>16</td>
-                                <td>17</td>
-                                <td>18</td>
-                                <td>19</td>
-                                <td>20</td>
-                                <td>21</td>
-                            </tr>
-                            <tr>
-                                <td>22</td>
-                                <td>23</td>
-                                <td>24</td>
-                                <td>25</td>
-                                <td>26</td>
-                                <td>27</td>
-                                <td>28</td>
-                            </tr>
-                            <tr>
-                                <td>29</td>
-                                <td>30</td>
-                                <td>31</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
+                        <tbody id="calendar-body" style="text-align: center;"></tbody>
                     </table>
                     </body>
                 </div>

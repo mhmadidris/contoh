@@ -14,6 +14,42 @@ $id_news = explode("?news=", basename($url));
 $andWhere = " AND id='" . $id_news[1] . "'";
 $get_row_news = getRowNews('news', $andWhere);
 
+// Start Komen Logic
+if (isset($_POST['submit-komen'])) {
+    global $wpdb;
+    $current_datetime = current_datetime()->format('Y-m-d H:i:s');
+
+    $data = array(
+        'news_id' => $id_news[1],
+        'nama' => isset($_POST['nama_komen']) ? $_POST['nama_komen'] : '',
+        'komen_body' => isset($_POST['body_komen']) ? $_POST['body_komen'] : '',
+        'date_added' => $current_datetime,
+        'date_modified' => $current_datetime,
+    );
+
+    addKomen('komen', $data);
+    echo "<script type='text/javascript'>window.location=document.location.href;</script>";
+}
+// End Komen Logic
+
+// Start Reply Logic
+if (isset($_POST['submit-reply-1'])) {
+    global $wpdb;
+    $current_datetime = current_datetime()->format('Y-m-d H:i:s');
+
+    $data = array(
+        'news_id' => $id_news[1],
+        'parent_komen_id' => $_POST['komen-id'],
+        'nama' => isset($_POST['nama_komen']) ? $_POST['nama_komen'] : '',
+        'komen_body' => "@" . $_POST['komen-nama'] . " - " . $_POST['body_komen'],
+        'date_added' => $current_datetime,
+        'date_modified' => $current_datetime,
+    );
+
+    addKomen('komen', $data);
+    echo "<script type='text/javascript'>window.location=document.location.href;</script>";
+}
+// End Reply Logic
 ?>
 <div class="container-fluid py-6 px-5">
     <div class="row g-5">
@@ -43,6 +79,9 @@ $get_row_news = getRowNews('news', $andWhere);
                 <?php
                 foreach ($tambil_data as $data) :
                 ?>
+                <?php
+                    if ($data->parent_komen_id == 0) :
+                    ?>
                 <div class="d-flex mb-4">
                     <!-- <img src="<?php echo get_template_directory_uri() . '/assets/img/user.jpg' ?>"
                         class="img-fluid rounded-circle" style="width: 45px; height: 45px;"> -->
@@ -51,27 +90,63 @@ $get_row_news = getRowNews('news', $andWhere);
                                 <?php echo $data->nama ?>
                             </a> <small><i>
                                     <?php
-                                        $date = date_create($data->date_added);
-                                        echo date_format($date, "D, d-m-Y");
-                                        ?>
+                                            $date = date_create($data->date_added);
+                                            echo date_format($date, "D, d M Y");
+                                            ?>
                                 </i></small></h6>
                         <p>
                             <?php echo $data->komen_body; ?>
                         </p>
-                        <button class="btn btn-sm btn-light">Reply</button>
+                        <button class="btn btn-sm btn-light shadow-none" data-toggle="reply-form"
+                            data-target="<?php echo $data->id; ?>" id="btn-reply">Reply</button>
+                        </button>
+                        <form method="POST" class="reply-form d-none bg-secondary rounded p-3"
+                            id="<?php echo $data->id; ?>">
+                            <div class="row g-3">
+                                <input type="hidden" name="komen-id" value="<?= $data->id; ?>">
+                                <input type="hidden" name="komen-nama" value="<?= $data->nama; ?>">
+                                <div class="col-12">
+                                    <input type="text" name="nama_komen" class="form-control bg-white border-0"
+                                        placeholder="Your Name" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="body_komen" class="form-control bg-white border-0" rows="5"
+                                        placeholder="Reply to <?= $data->nama; ?>"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-2" name="submit-reply-1"
+                                        type="submit">Reply</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <?php endforeach; ?>
-                <!-- <div class="d-flex ms-5 mb-4">
-                    <img src="<?php echo get_template_directory_uri() . '/assets/img/user.jpg' ?>"
-                        class="img-fluid rounded-circle" style="width: 45px; height: 45px;">
+                <?php
+                        foreach ($tambil_data as $data_reply) :
+                        ?>
+                <?php
+                            if ($data_reply->parent_komen_id != 0 && $data_reply->parent_komen_id == $data->id) :
+                            ?>
+                <div class="d-flex ms-5 mb-4">
+                    <!-- <img src="<?php echo get_template_directory_uri() . '/assets/img/user.jpg' ?>"
+                        class="img-fluid rounded-circle" style="width: 45px; height: 45px;"> -->
                     <div class="ps-3">
-                        <h6><a href="">Fuad Akhsan</a> <small><i>01 Jan 2023</i></small></h6>
-                        <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
-                            accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
-                        <button class="btn btn-sm btn-light">Reply</button>
+                        <h6><a href=""><?php echo $data_reply->nama ?></a> <small><i>
+                                    <?php
+                                                    $date = date_create($data_reply->date_added);
+                                                    echo date_format($date, "D, d M Y");
+                                                    ?>
+                                </i></small></h6>
+                        <p> <?php echo $data_reply->komen_body; ?></p>
+                        <!-- <button class="btn btn-sm btn-light">Reply</button> -->
                     </div>
-                </div> -->
+                </div>
+                <?php
+                            endif;
+                            ?>
+                <?php endforeach; ?>
+                <?php endif; ?>
+                <?php endforeach; ?>
             </div>
             <!-- Comment List End -->
 
@@ -89,29 +164,12 @@ $get_row_news = getRowNews('news', $andWhere);
                                 placeholder="Comment"></textarea>
                         </div>
                         <div class="col-12">
-                            <button class="btn btn-primary w-100 py-3" name="submit" type="submit">Leave Your
+                            <button class="btn btn-primary w-100 py-3" name="submit-komen" type="submit">Leave Your
                                 Comment</button>
                         </div>
                     </div>
                 </form>
             </div>
-            <?php
-            if (isset($_POST['submit'])) {
-                global $wpdb;
-                $current_datetime = current_datetime()->format('Y-m-d H:i:s');
-
-                $data = array(
-                    'news_id' => $id_news[1],
-                    'nama' => isset($_POST['nama_komen']) ? $_POST['nama_komen'] : '',
-                    'komen_body' => isset($_POST['body_komen']) ? $_POST['body_komen'] : '',
-                    'date_added' => $current_datetime,
-                    'date_modified' => $current_datetime,
-                );
-
-                addKomen('komen', $data);
-                echo "<script type='text/javascript'>window.location=document.location.href;</script>";
-            }
-            ?>
             <!-- Comment Form End -->
         </div>
 
@@ -204,6 +262,21 @@ $get_row_news = getRowNews('news', $andWhere);
     </div>
 </div>
 <!-- Blog End -->
+
+<script>
+document.addEventListener(
+    "click",
+    function(event) {
+        var target = event.target;
+        var replyForm;
+        if (target.matches("[data-toggle='reply-form']")) {
+            replyForm = document.getElementById(target.getAttribute("data-target"));
+            replyForm.classList.toggle("d-none");
+        }
+    },
+    false
+);
+</script>
 
 
 <?php get_footer(); ?>

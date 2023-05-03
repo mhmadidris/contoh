@@ -171,7 +171,7 @@ function callbackUpdateNews()
         $news_description = nl2br($_POST["deskripsi"]);
         $news_description = trim($news_description);
 
-        if ($_FILES['photos']['error'] == 4 || ($_FILES['photos']['size'] == 0 && $_FILES['photos']['error'] == 0)) {
+        if (!isset($_FILES['photos']) || $_FILES['photos']['error'] == 4 || ($_FILES['photos']['size'] == 0 && $_FILES['photos']['error'] == 0)) {
             $data = array(
                 'judul' => isset($_POST['judul']) ? $_POST['judul'] : '',
                 'deskripsi' => isset($news_description) ? $news_description : '',

@@ -6,7 +6,6 @@
     .ck-editor__editable {
         min-height: 250px !important;
     }
-
     /* End CKEditor Style */
 </style>
 
@@ -67,19 +66,15 @@
     // Start CkEditor
     ClassicEditor
         .create(document.querySelector('#editor'), {
-            link: {
-                decorators: {
-                    openInNewTab: {
-                        mode: 'manual',
-                        label: 'Open in a new tab',
-                        defaultValue: true, // This option will be selected by default.
-                        attributes: {
-                            target: '_blank',
-                            rel: 'noopener noreferrer'
-                        }
-                    }
-                }
-            }
+            placeholder: 'Deskripsi berita',
+            toolbar: {
+                items: [
+                    'heading',
+                    '|', 'bold', 'italic', 'bulletedList', 'numberedList',
+                    '|', 'undo', 'redo',
+                ]
+            },
+            language: 'en',
         })
         .catch(error => {
             console.error(error);

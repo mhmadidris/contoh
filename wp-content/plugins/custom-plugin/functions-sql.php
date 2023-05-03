@@ -115,7 +115,7 @@ function getRowKomen($nama_tabel, $where)
     global $wpdb;
 
     $table_name = $wpdb->prefix . $nama_tabel;
-    $sql = "SELECT * FROM wp_komen WHERE news_id =" . $where;
+    $sql = "SELECT * FROM wp_komen WHERE news_id =" . $where . " ORDER BY parent_komen_id ASC, id ASC";
     $query = $wpdb->get_results($sql);
 
     return $query;

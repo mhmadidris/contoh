@@ -248,7 +248,7 @@ $(document).ready(function() {
                         <td><img src="<?= content_url() . '/uploads/' . "images/news/" . $data->gambar; ?>"
                                 alt="<?php echo $data->gambar ?>" style="margin-bottom: 5px; width: 100px;">
                             </br>
-                            <p class="news-title"><?php echo $data->judul; ?></p>
+                            <p class="news-title" style="font-size: 12px;"><?php echo $data->judul; ?></p>
                         </td>
                         <td><?php echo strtoupper($data->kategori); ?></td>
                         <td><?php

@@ -34,6 +34,7 @@ function create_custom_table()
             judul varchar(255) NOT NULL,
             deskripsi longtext NOT NULL,
             kategori varchar(255) NOT NULL,
+            tag_cloud text,
             date_added timestamp ,
             date_modified timestamp,
             primary key (id)

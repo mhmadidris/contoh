@@ -88,6 +88,16 @@ function recentNews($nama_tabel)
     return $query;
 }
 
+function newsTag()
+{
+    global $wpdb;
+
+    $sql = "SELECT GROUP_CONCAT(DISTINCT tag_cloud ORDER BY tag_cloud ASC SEPARATOR ', ') AS grup FROM wp_news";
+    $query = $wpdb->get_results($sql);
+
+    return $query;
+}
+
 function recentNewsIndex($nama_tabel)
 {
     global $wpdb;

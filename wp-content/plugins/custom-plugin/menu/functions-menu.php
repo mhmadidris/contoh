@@ -135,6 +135,7 @@ function callbackAddNews()
             'judul' => isset($_POST['judul']) ? $_POST['judul'] : '',
             'deskripsi' => isset($_POST["deskripsi"]) ? $_POST["deskripsi"] : '',
             'kategori' => $_POST['kategoriValue'],
+            'tag_cloud' => $_POST['tag_cloud'],
             'date_added' => $current_datetime,
             'date_modified' => $current_datetime,
         );
@@ -176,6 +177,7 @@ function callbackUpdateNews()
                 'judul' => isset($_POST['judul']) ? $_POST['judul'] : '',
                 'deskripsi' => isset($news_description) ? $news_description : '',
                 'kategori' => $_POST['kategoriValue'],
+                'tag_cloud' => $_POST['tag_cloud'],
                 'date_added' => $current_datetime,
                 'date_modified' => $current_datetime,
             );
